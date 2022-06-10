@@ -1,0 +1,50 @@
+{
+  "name": "sample-nextjs-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.1",
+    "@chakra-ui/react": "^2.1.2",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@fontsource/inter": "^4.5.10",
+    "@fontsource/open-sans": "^4.5.10",
+    "@fontsource/raleway": "^4.5.8",
+    "@hookform/resolvers": "^2.8.10",
+    "@prisma/client": "^3.14.0",
+    "airtable": "^0.11.4",
+    "axios": "^0.27.2",
+    "framer-motion": "^6.3.3",
+    "next": "12.1.6",
+    "next-auth": "^4.3.4",
+    "next-plausible": "^3.2.0",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-hook-form": "^7.31.3",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.31",
+    "@types/react": "18.0.8",
+    "@types/react-dom": "18.0.3",
+    "eslint": "8.14.0",
+    "eslint-config-next": "12.1.6",
+    "prisma": "^3.14.0",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.6.4"
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "next.config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
