@@ -37,8 +37,9 @@ const CreateProducts = async (req: NextApiRequest, res: NextApiResponse) => {
   const products = prices.map((rawStripeRes: any) => {
     const price = rawStripeRes.unit_amount;
     const name = rawStripeRes.product.name; // TODO: might need work
+    const images = rawStripeRes.product.images.length > 0 ? rawStripeRes.product.images[0] : "https://images.unsplash.com/photo-1562157873-818bc0726f68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80";
 
-    return { name, price, rawStripeRes, storeId }
+    return { name, price, rawStripeRes, storeId, images }
   })
 
 

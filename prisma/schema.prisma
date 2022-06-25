@@ -22,6 +22,7 @@ model Product {
   name    String
   price   Int
   store   Store @relation(fields: [storeId], references: [id])
+  image  String
   storeId Int
   rawStripeRes Json?
 }

@@ -100,9 +100,9 @@ const SiteIndex: FunctionComponent<SiteIndexProps> = ({
             <CategoryBrowser />
           </Box>
           <SimpleGrid minChildWidth={200} spacing={10} flex="2">
-            {products.map((product: any) => {
+            {products.map((product: any, i: number) => {
               return (
-                <VStack spacing={2} align="flex-start">
+                <VStack spacing={2} align="flex-start" key={`product_${i}`}>
                   <Box bg="gray.50" height="300px" w="full"></Box>
                   <Box>
                     <Text>{product.name}</Text>
