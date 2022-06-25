@@ -1,7 +1,11 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import stripe from 'stripe';
 import prisma from "../../../lib/prisma";
+import Stripe from 'stripe';
+
+const stripe = new Stripe('sk_test_...', {
+  apiVersion: '2020-08-27',
+});
 
 async function createBatchProducts(storeId: number, data: any) {
 
@@ -19,7 +23,7 @@ async function createBatchProducts(storeId: number, data: any) {
   return products;
 }
 
-const GetAccount = async (req: NextApiRequest, res: NextApiResponse) => {
+const CreateProducts = async (req: NextApiRequest, res: NextApiResponse) => {
   const { storeId = 1, apiKey } = req.body;
 
   const response = await stripe.prices.list({ expand: ['data.product'] },
@@ -44,4 +48,4 @@ const GetAccount = async (req: NextApiRequest, res: NextApiResponse) => {
   res.json({ data: productsObj })
 }
 
-export default GetAccount;
+export default CreateProducts;
