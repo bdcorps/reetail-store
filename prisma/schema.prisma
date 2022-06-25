@@ -10,34 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
-  id    String @id @default(uuid())
-  email String @unique
-  sites Site[]
+model Store {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+  subdomain String @unique
 }
 
-model Site {
-  id   String @id @default(uuid())
-  name String @unique
-
-  at_apiKey String?
-  at_base   String?
-  at_table  String?
-
-  pages     Page[]
-  accountId String?
-  account   Account? @relation(fields: [accountId], references: [id])
-}
-
-// headline: "Remove sound from your video online",
-// description: "1",
-// image: "https://cdn.kapwing.com/static/muteVideoControl.jpeg",
-// ctaText: ""
-model Page {
-  id     String  @id @default(uuid())
-  type   String //P1
-  name   String  @unique
-  data   Json
-  siteId String?
-  Site   Site?   @relation(fields: [siteId], references: [id])
+model Product {
+  id      Int    @id @default(autoincrement())
+  name    String
+  price   Int
+  store   Store @relation(fields: [storeId], references: [id])
+  storeId Int
+  rawStripeRes Json?
 }
