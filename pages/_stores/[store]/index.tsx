@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import image from "next/image";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { getStore } from "../../api/store/[storeId]";
 
 interface CategoryBrowserProps {}
@@ -72,9 +72,9 @@ const CategoryBrowser: FunctionComponent<CategoryBrowserProps> = () => {
   );
 };
 
-interface SiteIndexProps {}
+interface StoreIndexProps {}
 
-const SiteIndex: FunctionComponent<SiteIndexProps> = ({
+const StoreIndex: FunctionComponent<StoreIndexProps> = ({
   store: {
     id,
     name,
@@ -83,6 +83,8 @@ const SiteIndex: FunctionComponent<SiteIndexProps> = ({
     products,
   },
 }: any) => {
+  const [cart, setCart] = useState({ products: [] });
+
   return (
     <Container maxW="container.lg" p={4}>
       <VStack spacing={10}>
@@ -96,14 +98,18 @@ const SiteIndex: FunctionComponent<SiteIndexProps> = ({
         </Center>
 
         <HStack spacing={10} align="flex-start" w="full">
-          <Box flex="1" w="full">
+          {/* <Box flex="1" w="full">
             <CategoryBrowser />
-          </Box>
+          </Box> */}
           <SimpleGrid minChildWidth={200} spacing={10} flex="2">
             {products.map((product: any, i: number) => {
               return (
                 <VStack spacing={2} align="flex-start" key={`product_${i}`}>
-                  <Box bg="gray.50" height="300px" w="full"></Box>
+                  <Image
+                    bg="gray.50"
+                    height="300px"
+                    src={product.image}
+                  ></Image>
                   <Box>
                     <Text>{product.name}</Text>
                     <Text>${product.price / 100}</Text>
@@ -130,4 +136,4 @@ export async function getServerSideProps({ params }: any) {
   };
 }
 
-export default SiteIndex;
+export default StoreIndex;
