@@ -8,7 +8,6 @@ const stripe = new Stripe('sk_test_...', {
 });
 
 async function createBatchProducts(storeId: number, data: any) {
-
   await prisma.product.deleteMany({
     where: {
       storeId

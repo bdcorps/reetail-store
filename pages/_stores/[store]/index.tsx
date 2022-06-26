@@ -19,6 +19,7 @@ import {
   Checkbox,
   CheckboxGroup,
   Spacer,
+  useToast,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import image from "next/image";
@@ -81,12 +82,14 @@ const StoreIndex: FunctionComponent<StoreIndexProps> = ({
   store: {
     id,
     name,
+    announcement,
     description = "This is my cool store",
     subdomain,
     products,
   },
 }: any) => {
   const { addItem } = useShoppingCart();
+  const toast = useToast();
 
   return (
     <Container maxW="container.lg" p={4}>
@@ -103,8 +106,13 @@ const StoreIndex: FunctionComponent<StoreIndexProps> = ({
       <VStack spacing={10}>
         <Center>
           <Box textAlign="center">
-            <Text>{description}</Text>
+            <Text fontSize="xl" fontWeight={600}>
+              {announcement}
+            </Text>
           </Box>
+          {/* <Box textAlign="center">
+            <Text>{description}</Text>
+          </Box> */}
         </Center>
 
         <HStack spacing={10} align="flex-start" w="full">
@@ -127,9 +135,19 @@ const StoreIndex: FunctionComponent<StoreIndexProps> = ({
                     <Button
                       onClick={() => {
                         addItem(product);
+                        toast({
+                          title: "Item added.",
+                          description:
+                            "We've added an item to the cart for you.",
+                          status: "success",
+                          duration: 2000,
+                          isClosable: true,
+                        });
                       }}
+                      variant="link"
+                      size="sm"
                     >
-                      Buy 1
+                      + Add to cart
                     </Button>
                   </Box>
                 </VStack>

@@ -10,6 +10,8 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Portal,
+  Box,
+  Text,
 } from "@chakra-ui/react";
 import { useShoppingCart } from "use-shopping-cart";
 import { fetchPostJSON } from "../utils/api-helpers";
@@ -31,12 +33,13 @@ const Cart: FunctionComponent<CartProps> = () => {
 
   useEffect(() => setCartEmpty(!cartCount), [cartCount]);
 
-  const handleCheckout = async () => {
-    const line_items = Object.keys(cartDetails).map((key, val) => {
-      const product = cartDetails[key];
-      return { price: product.id, quantity: 1 };
-    });
+  console.log({ cartDetails });
+  const line_items = Object.keys(cartDetails).map((key, val) => {
+    const product = cartDetails[key];
+    return { price: product.id, quantity: product.quantity };
+  });
 
+  const handleCheckout = async () => {
     const response = await fetchPostJSON("/api/checkout_sessions/cart", {
       line_items,
     });
@@ -72,18 +75,32 @@ const Cart: FunctionComponent<CartProps> = () => {
             >
               Checkout
             </Button>
+
+            <Box my={2}>
+              {line_items.map((item: any) => {
+                return (
+                  <Text>
+                    {item.price} x {item.quantity}
+                  </Text>
+                );
+              })}
+            </Box>
+          </PopoverBody>
+          <PopoverFooter>
+            <Text>
+              {cartCount} items | {formattedTotalPrice}
+            </Text>
+
             <Button
               colorScheme="brand"
-              variant="outline"
+              variant="link"
+              size="sm"
               onClick={() => {
                 clearCart();
               }}
             >
               Clear Cart
             </Button>
-          </PopoverBody>
-          <PopoverFooter>
-            {cartCount} items | {formattedTotalPrice}
           </PopoverFooter>
         </PopoverContent>
       </Portal>

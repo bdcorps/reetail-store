@@ -13,6 +13,7 @@ datasource db {
 model Store {
   id       Int       @id @default(autoincrement())
   name     String
+  announcement String
   products Product[]
   subdomain String @unique
 }
