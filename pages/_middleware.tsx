@@ -23,7 +23,7 @@ export default async function middleware(req: NextRequest) {
     process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
       ? hostname
           .replace(`.reetail-store-app.vercel.app`, "")
-          .replace(`.reetail-store.cc`, "")
+          .replace(`.reetail.store`, "")
       : hostname.replace(`.localhost:3000`, "");
   console.log({ currentHost });
   if (currentHost === "app") {
