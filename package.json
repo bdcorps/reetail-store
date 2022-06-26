@@ -18,17 +18,20 @@
     "@fontsource/raleway": "^4.5.8",
     "@hookform/resolvers": "^2.8.10",
     "@prisma/client": "^3.14.0",
+    "@stripe/react-stripe-js": "1.7.0",
+    "@stripe/stripe-js": "^1.22.0",
     "airtable": "^0.11.4",
     "axios": "^0.27.2",
     "framer-motion": "^6.3.3",
+    "micro": "^9.3.4",
+    "micro-cors": "^0.1.1",
     "next": "12.1.6",
-    "next-auth": "^4.3.4",
-    "next-plausible": "^3.2.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-hook-form": "^7.31.3",
     "stripe": "^9.10.0",
-    "yup": "^0.32.11"
+    "swr": "^0.1.16",
+    "use-shopping-cart": "^3.1.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.31",

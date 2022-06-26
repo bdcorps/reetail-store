@@ -1,8 +1,7 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import React from "react";
-import PlausibleProvider from "next-plausible";
+import { CartProvider } from "use-shopping-cart";
 
 const theme = extendTheme({
   colors: {
@@ -27,12 +26,14 @@ const theme = extendTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <PlausibleProvider domain="reetail-store.cc">
+    <CartProvider
+      cartMode="checkout-session"
+      stripe={process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string}
+      currency="USD"
+    >
       <ChakraProvider theme={theme}>
-        <SessionProvider session={pageProps.session} refetchInterval={0}>
-          <Component {...pageProps} />
-        </SessionProvider>
+        <Component {...pageProps} />
       </ChakraProvider>
-    </PlausibleProvider>
+    </CartProvider>
   );
 }

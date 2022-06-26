@@ -1,5 +1,3 @@
-import { withAuth } from "next-auth/middleware";
-
 // export default withAuth({
 //   pages: {
 //     signIn: "/auth/signin",
@@ -9,8 +7,6 @@ import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
 import type { NextRequest } from "next/server";
-
-import { getSession } from "next-auth/react";
 
 export default async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();

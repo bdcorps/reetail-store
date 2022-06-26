@@ -18,10 +18,13 @@ import {
   SimpleGrid,
   Checkbox,
   CheckboxGroup,
+  Spacer,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import image from "next/image";
 import React, { FunctionComponent, useState } from "react";
+import { useShoppingCart } from "use-shopping-cart";
+import Cart from "../../../components/Cart";
 import { getStore } from "../../api/store/[storeId]";
 
 interface CategoryBrowserProps {}
@@ -83,17 +86,24 @@ const StoreIndex: FunctionComponent<StoreIndexProps> = ({
     products,
   },
 }: any) => {
-  const [cart, setCart] = useState({ products: [] });
+  const { addItem } = useShoppingCart();
 
   return (
     <Container maxW="container.lg" p={4}>
+      <HStack py={2} spacing={6} align="center">
+        <HStack spacing={2}>
+          <Text fontWeight={600} fontSize="md" color="brand.500">
+            {name}
+          </Text>
+        </HStack>
+        <Spacer />
+        <Cart />
+      </HStack>
+
       <VStack spacing={10}>
         <Center>
           <Box textAlign="center">
             <Text>{description}</Text>
-            <Text fontSize="3xl" fontWeight={600}>
-              {name}
-            </Text>
           </Box>
         </Center>
 
@@ -113,6 +123,14 @@ const StoreIndex: FunctionComponent<StoreIndexProps> = ({
                   <Box>
                     <Text>{product.name}</Text>
                     <Text>${product.price / 100}</Text>
+
+                    <Button
+                      onClick={() => {
+                        addItem(product);
+                      }}
+                    >
+                      Buy 1
+                    </Button>
                   </Box>
                 </VStack>
               );
