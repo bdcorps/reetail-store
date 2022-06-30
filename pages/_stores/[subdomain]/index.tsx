@@ -1,32 +1,27 @@
 import {
-  Box,
-  Button,
-  Center,
-  Container,
-  Heading,
-  Text,
-  VStack,
-  Wrap,
-  Image,
-  WrapItem,
   Accordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  HStack,
-  SimpleGrid,
+  Box,
+  Button,
+  Center,
   Checkbox,
   CheckboxGroup,
+  Container,
+  HStack,
+  Image,
+  SimpleGrid,
   Spacer,
+  Text,
   useToast,
+  VStack,
 } from "@chakra-ui/react";
-import Head from "next/head";
-import image from "next/image";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { useShoppingCart } from "use-shopping-cart";
 import Cart from "../../../components/Cart";
-import { getStore } from "../../api/store/[storeId]";
+import { getStoreBySubdomain } from "../../api/store/s/[subdomain]";
 
 interface CategoryBrowserProps {}
 
@@ -161,9 +156,9 @@ const StoreIndex: FunctionComponent<StoreIndexProps> = ({
 };
 
 export async function getServerSideProps({ params }: any) {
-  const { store } = params;
+  const { subdomain } = params;
 
-  const storeData = await getStore(store);
+  const storeData = await getStoreBySubdomain(subdomain);
 
   const props = { store: storeData };
 

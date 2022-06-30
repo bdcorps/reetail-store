@@ -4,11 +4,10 @@
 //   },
 // });
 
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import type { NextRequest } from "next/server";
-
-export default async function middleware(req: NextRequest) {
+export default async function middleware(req: NextRequest, res: NextResponse) {
   const url = req.nextUrl.clone();
   // Get pathname of request (e.g. /blog-slug)
   const { pathname } = req.nextUrl;

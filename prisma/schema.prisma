@@ -11,19 +11,20 @@ datasource db {
 }
 
 model Store {
-  id       Int       @id @default(autoincrement())
-  name     String
-  announcement String
-  products Product[]
-  subdomain String @unique
+  id           Int       @id @default(autoincrement())
+  accountId    String    @unique
+  name         String
+  announcement String?
+  products     Product[]
+  subdomain    String    @unique
 }
 
 model Product {
-  id      String    @id
-  name    String
-  price   Int
-  store   Store @relation(fields: [storeId], references: [id])
-  image  String
-  storeId Int
+  id           String @id
+  name         String
+  price        Int
+  store        Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  image        String
+  storeId      Int
   rawStripeRes Json?
 }
