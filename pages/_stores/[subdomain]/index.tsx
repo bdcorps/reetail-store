@@ -21,7 +21,7 @@ import {
 import React, { FunctionComponent } from "react";
 import { useShoppingCart } from "use-shopping-cart";
 import Cart from "../../../components/Cart";
-import { getStoreBySubdomain } from "../../api/store/s/[subdomain]";
+import { getStoreBySubdomain } from "../../api/store/sites/[subdomain]";
 
 interface CategoryBrowserProps {}
 

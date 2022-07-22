@@ -11,6 +11,10 @@ export async function getStoreByAccountId(accountId: string) {
   return page;
 }
 
+async function updateStore(accountId: string, data: any) {
+  await prisma.store.update({ where: { accountId }, data });
+}
+
 async function deleteStore(accountId: string) {
   await prisma.store.delete({ where: { accountId } });
 }
@@ -36,6 +40,17 @@ const Store = async (req: NextApiRequest, res: NextApiResponse) => {
         error: true,
       });
     }
+  }
+  else if (method === "PATCH") {
+    const { accountId } = req.query;
+
+    const { name, theme, logo } = req.body;
+    await updateStore(accountId as string, { name, theme, logo });
+
+    return res.status(200).json({
+      error: false,
+      data: "ok",
+    });
   }
   else if (method === "DELETE") {
     const { accountId } = req.query;

@@ -21,8 +21,8 @@
     "next-auth.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/api/store/s/[subdomain]",
-    "pages/api/store/a/[accountId]"
+    "pages/api/store/sites/[subdomain]",
+    "pages/api/store/aaccounts/[accountId]"
   ],
   "exclude": ["node_modules"]
 }

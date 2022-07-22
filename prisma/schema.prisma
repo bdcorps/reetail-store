@@ -14,9 +14,11 @@ model Store {
   id           Int       @id @default(autoincrement())
   accountId    String    @unique
   name         String
+  logo String?
   announcement String?
   products     Product[]
   subdomain    String    @unique
+  theme       String @default("basic")
 }
 
 model Product {
