@@ -183,8 +183,7 @@ const stripe = new Stripe(DEV_API_KEY, {
   apiVersion: '2020-08-27',
 });
 
-async function createBatchProducts(storeId: number, data: any) {
-  console.log("batch", storeId, data)
+export async function createBatchProducts(storeId: number, data: any) {
   await prisma.product.deleteMany({
     where: {
       storeId
@@ -199,17 +198,7 @@ async function createBatchProducts(storeId: number, data: any) {
   return products;
 }
 
-const CreateProducts = async (req: NextApiRequest, res: NextApiResponse) => {
-  await enableCors(req, res)
-  const accountId = String(req.query.accountId);
-  const store = await getStoreByAccountId(accountId as string);
-
-  if (!store) {
-    return res.status(404).json({
-      error: true,
-      message: "no store"
-    });
-  }
+export async function getProductsFromStripe(accountId: string, storeId: number) {
 
   // gets real data from Stripe. Commenting out because not all accounts can access their products data at this point. Stripe support will enable this after we go live.
   // const response = await stripe.prices.list({ expand: ['data.product'] },
@@ -230,10 +219,24 @@ const CreateProducts = async (req: NextApiRequest, res: NextApiResponse) => {
     const name = rawStripeRes.product.name; // TODO: might need work
     const image = rawStripeRes.product.images.length > 0 ? rawStripeRes.product.images[0] : "https://images.unsplash.com/photo-1562157873-818bc0726f68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80";
 
-    return { id, name, price, rawStripeRes, storeId: store.id, image }
+    return { id, name, price, rawStripeRes, storeId, image }
   })
 
+  return products;
 
+}
+
+const CreateProducts = async (req: NextApiRequest, res: NextApiResponse) => {
+  await enableCors(req, res)
+  const accountId = String(req.query.accountId);
+  const store = await getStoreByAccountId(accountId);
+  if (!store) {
+    return res.status(404).json({
+      error: true,
+      message: "no store"
+    });
+  }
+  const products = await getProductsFromStripe(accountId, store.id);
   const productsObj = createBatchProducts(store.id, products);
 
   res.json({ data: productsObj })

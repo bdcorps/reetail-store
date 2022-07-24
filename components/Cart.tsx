@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
 import {
+  Box,
   Button,
   Popover,
   PopoverArrow,
@@ -10,9 +10,9 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Portal,
-  Box,
   Text,
 } from "@chakra-ui/react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useShoppingCart } from "use-shopping-cart";
 import { fetchPostJSON } from "../utils/api-helpers";
 import getStripe from "../utils/get-stripejs";
@@ -33,7 +33,6 @@ const Cart: FunctionComponent<CartProps> = () => {
 
   useEffect(() => setCartEmpty(!cartCount), [cartCount]);
 
-  console.log({ cartDetails });
   const line_items = Object.keys(cartDetails).map((key, val) => {
     const product = cartDetails[key];
     return { price: product.id, quantity: product.quantity };

@@ -24,7 +24,7 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
           .replace(`.reetail-store-app.vercel.app`, "")
           .replace(`.reetail.store`, "")
       : hostname.replace(`.localhost:3000`, "");
-  console.log({ currentHost });
+
   if (currentHost === "app") {
     // url.hostname = `localhost:3000${pathname}`;
     // return NextResponse.rewrite(url);
@@ -35,7 +35,6 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
     !pathname.startsWith("/api") &&
     !pathname.startsWith("/stores")
   ) {
-    console.log({ pathname }, { hostname });
     url.pathname = `/_stores/${currentHost}${pathname}`;
     return NextResponse.rewrite(url);
   }

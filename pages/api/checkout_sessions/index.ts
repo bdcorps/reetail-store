@@ -1,11 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-
-import { CURRENCY, MIN_AMOUNT, MAX_AMOUNT } from '../../../config'
+import Stripe from 'stripe'
+import { CURRENCY, MAX_AMOUNT, MIN_AMOUNT } from '../../../config'
 import { formatAmountForStripe } from '../../../utils/stripe-helpers'
 
-import Stripe from 'stripe'
 
-console.log("d", process.env.STRIPE_SECRET_KEY)
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   // https://github.com/stripe/stripe-node#configuration
@@ -16,7 +14,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log("dd")
   if (req.method === 'POST') {
     const amount: number = 500;
     try {

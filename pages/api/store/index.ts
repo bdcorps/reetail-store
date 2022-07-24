@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from "../../../lib/prisma";
 import { enableCors } from '../../../utils/cors';
+import { createBatchProducts, getProductsFromStripe } from './accounts/[accountId]/products';
 
 const Store = async (req: NextApiRequest, res: NextApiResponse) => {
   await enableCors(req, res)
@@ -11,13 +12,16 @@ const Store = async (req: NextApiRequest, res: NextApiResponse) => {
   if (method === "POST") {
     const { accountId, name, subdomain } = req.body;
 
-    console.log(req.body)
     try {
-      await prisma.store.create({
+      const store = await prisma.store.create({
         data: {
           accountId, name, subdomain
         },
       });
+
+      const products = await getProductsFromStripe(accountId, store.id);
+      const productsObj = createBatchProducts(store.id, products);
+
 
       return res.status(200).json({ done: "ok" });
     } catch (error) {
